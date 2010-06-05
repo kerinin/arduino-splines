@@ -6,10 +6,13 @@ for the arduino environment.
 
 Usage
 ---------------
+Checkout the code
+
+    git clone git://github.com/kerinin/arduino-splines.git ~/sketchbook/libraries/
+
 Add the library header to your code
 
     #include <spline.h>
-
 
 There are currently 4 types of spline interpolation available:
 
@@ -28,8 +31,8 @@ is an easy way to obtain smooth interpolation - you don't need to specify the
 tangent points.
 
 Be aware that when using Catmull-Rom splines, the first and last points
-are not part of the spline - they are used to determine the tangentcy of the start
-and end of the spline.  The spline itset starts at the second and second-to-last
+are not part of the spline - they are used to determine the tangency of the start
+and end of the spline.  The spline itself starts at the second and second-to-last
 point.
 
 For all splines, values requested outside the defined spline bounds will return
