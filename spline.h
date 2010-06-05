@@ -15,28 +15,28 @@ class Spline
 {
   public:
     Spline( void );
-    Spline( double x[], double y[], int numPoints, int degree = 1 );
-    Spline( double x[], double y[], double m[], int numPoints );
-    double value( double x );
-    void setPoints( double x[], double y[], int numPoints );
-    void setPoints( double x[], double y[], double m[], int numPoints );
+    Spline( float x[], float y[], int numPoints, int degree = 1 );
+    Spline( float x[], float y[], float m[], int numPoints );
+    float value( float x );
+    void setPoints( float x[], float y[], int numPoints );
+    void setPoints( float x[], float y[], float m[], int numPoints );
     void setDegree( int degree );
     
   private:
-    double calc( double, int);
-    double* _x;
-    double* _y;
-    double* _m;
+    float calc( float, int);
+    float* _x;
+    float* _y;
+    float* _m;
     int _degree;
     int _length;
     int _prev_point;
     
-    double hermite( double t, double p0, double p1, double m0, double m1, double x0, double x1 );
-    double hermite_00( double t );
-    double hermite_10( double t );
-    double hermite_01( double t );
-    double hermite_11( double t );
-    double catmull_tangent( int i );
+    float hermite( float t, float p0, float p1, float m0, float m1, float x0, float x1 );
+    float hermite_00( float t );
+    float hermite_10( float t );
+    float hermite_01( float t );
+    float hermite_11( float t );
+    float catmull_tangent( int i );
 };
 
 #endif

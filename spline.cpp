@@ -6,27 +6,27 @@ Spline::Spline(void) {
   _prev_point = 0;
 }
 
-Spline::Spline( double x[], double y[], int numPoints, int degree )
+Spline::Spline( float x[], float y[], int numPoints, int degree )
 {
   setPoints(x,y,numPoints);
   setDegree(degree);
   _prev_point = 0;
 }
 
-Spline::Spline( double x[], double y[], double m[], int numPoints )
+Spline::Spline( float x[], float y[], float m[], int numPoints )
 {
   setPoints(x,y,m,numPoints);
   setDegree(Hermite);
   _prev_point = 0;
 }
 
-void Spline::setPoints( double x[], double y[], int numPoints ) {
+void Spline::setPoints( float x[], float y[], int numPoints ) {
   _x = x;
   _y = y;
   _length = numPoints;
 }
 
-void Spline::setPoints( double x[], double y[], double m[], int numPoints ) {
+void Spline::setPoints( float x[], float y[], float m[], int numPoints ) {
   _x = x;
   _y = y;
   _m = m;
@@ -37,7 +37,7 @@ void Spline::setDegree( int degree ){
   _degree = degree;
 }
 
-double Spline::value( double x )
+float Spline::value( float x )
 {
   if( _x[0] > x ) { 
     return _y[0]; 
@@ -61,7 +61,7 @@ double Spline::value( double x )
   }
 }
 
-double Spline::calc( double x, int i )
+float Spline::calc( float x, int i )
 {
   switch( _degree ) {
     case 0:
@@ -83,23 +83,23 @@ double Spline::calc( double x, int i )
         // x after spline end - last point used to determine tangent
         return _y[_length-2];
       } else {
-        double t = (x-_x[i]) / (_x[i+1]-_x[i]);
-        double m0 = (i==0 ? 0 : catmull_tangent(i) );
-        double m1 = (i==_length-1 ? 0 : catmull_tangent(i+1) );
+        float t = (x-_x[i]) / (_x[i+1]-_x[i]);
+        float m0 = (i==0 ? 0 : catmull_tangent(i) );
+        float m1 = (i==_length-1 ? 0 : catmull_tangent(i+1) );
         return hermite( t, _y[i], _y[i+1], m0, m1, _x[i], _x[i+1]);        
       }
   }
 }
 
-double Spline::hermite( double t, double p0, double p1, double m0, double m1, double x0, double x1 ) {
+float Spline::hermite( float t, float p0, float p1, float m0, float m1, float x0, float x1 ) {
   return (hermite_00(t)*p0) + (hermite_10(t)*(x1-x0)*m0) + (hermite_01(t)*p1) + (hermite_11(t)*(x1-x0)*m1);
 }
-double Spline::hermite_00( double t ) { return (2*pow(t,3)) - (3*pow(t,2)) + 1;}
-double Spline::hermite_10( double t ) { return pow(t,3) - (2*pow(t,2)) + t; }
-double Spline::hermite_01( double t ) { return (3*pow(t,2)) - (2*pow(t,3)); }
-double Spline::hermite_11( double t ) { return pow(t,3) - pow(t,2); }
+float Spline::hermite_00( float t ) { return (2*pow(t,3)) - (3*pow(t,2)) + 1;}
+float Spline::hermite_10( float t ) { return pow(t,3) - (2*pow(t,2)) + t; }
+float Spline::hermite_01( float t ) { return (3*pow(t,2)) - (2*pow(t,3)); }
+float Spline::hermite_11( float t ) { return pow(t,3) - pow(t,2); }
 
-double Spline::catmull_tangent( int i ) 
+float Spline::catmull_tangent( int i ) 
 { 
   if( _x[i+1] == _x[i-1] ) {
     // Avoids division by 0
