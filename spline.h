@@ -1,7 +1,7 @@
 /*
   Library for 1-d splines
   Copyright Ryan Michael
-  Licensed under the GPLv3 
+  Licensed under the LGPLv3 
 */
 #ifndef spline_h
 #define spline_h
